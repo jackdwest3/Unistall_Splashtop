@@ -14,9 +14,9 @@ Remove-Item -Path "C:\Program Files (x86)\Splashtop\Splashtop Remote\Server" -Re
 # Remove the Splashtop Temp folder
 Remove-Item -Path "C:\ProgramData\Splashtop\Temp" -Recurse -Force -ErrorAction SilentlyContinue
 
-# Stop and delete the SSUService
-Stop-Service -Name "SSUService" -ErrorAction SilentlyContinue
-Remove-Service -Name "SSUService" -ErrorAction SilentlyContinue
+# Stop and delete the SSUService using sc.exe
+Start-Process -FilePath "sc.exe" -ArgumentList "stop SSUService" -Wait -NoNewWindow -ErrorAction SilentlyContinue
+Start-Process -FilePath "sc.exe" -ArgumentList "delete SSUService" -Wait -NoNewWindow -ErrorAction SilentlyContinue
 
 # Remove the Splashtop Software Updater folders
 Remove-Item -Path "C:\ProgramData\Splashtop\Splashtop Software Updater" -Recurse -Force -ErrorAction SilentlyContinue
